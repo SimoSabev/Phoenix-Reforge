@@ -42,13 +42,6 @@ export const metadata: Metadata = {
     ],
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Phoenix Reforge - Web Dev & Design",
-    description: "Crafting exceptional digital experiences.",
-    images: ["/phoenixfavicon.png"], // Again, can be a banner image
-    creator: "@phoenixreforge", // Optional: if you have a Twitter handle
-  },
 }
 
 
