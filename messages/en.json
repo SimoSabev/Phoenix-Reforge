@@ -1,0 +1,50 @@
+{
+  "Navbar": {
+    "home": "Home",
+    "aboutUs": "About Us",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "IntroSection": {
+    "tagline": "Always Available",
+    "heading1": "CRAFTING",
+    "heading2": "DIGITAL",
+    "heading3": "MASTERPIECES",
+    "heading4": "FOR YOU",
+    "nextStepPrefix": "OUR NEXT STEP:",
+    "nextStepSuffix": "YOUR PROJECT"
+  },
+  "HeroSection": {
+    "heading": "Your Vision, Our Expertise.",
+    "description": "We are Phoenix Reforge, a collective of Web Developers and Designers. Together, we transform ideas into stunning, functional web experiences.",
+    "viewPortfolio": "View Our Portfolio",
+    "getInTouch": "Get In Touch"
+  },
+  "AboutUsSection": {
+    "heading": "Meet the Visionaries",
+    "simeonRole": "Frontend Developer",
+    "simeonDescription": "I'm a professional front-end developer with over two years of experience crafting beautiful, responsive, and highly functional web applications. I specialize in modern technologies and user-centered design, bringing ideas to life with clean, efficient code.",
+    "simeonStatus": "Available",
+    "maksimRole": "Web Designer & UI/UX",
+    "maksimDescription": "I am a passionate web designer with an eye for aesthetics and user-centric interfaces. My designs prioritize visual appeal, intuitive navigation, and a strong brand identity, creating engaging digital experiences.",
+    "maksimStatus": "Open"
+  },
+  "ProjectsSection": {
+    "heading": "Our Creative Portfolio"
+  },
+  "ContactFooterSection": {
+    "heading": "Let's Create Together",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "messageLabel": "Message",
+    "namePlaceholder": "Your Full Name",
+    "emailPlaceholder": "your@example.com",
+    "messagePlaceholder": "Tell us about your project or inquiry...",
+    "sendButton": "Send Message",
+    "sendingButton": "Sending...",
+    "successMessage": "Message sent successfully!",
+    "failureMessage": "Failed to send message. Please try again.",
+    "copyright": "Phoenix Reforge. All rights reserved.",
+    "tagline": "Crafting digital masterpieces with passion and precision."
+  }
+}

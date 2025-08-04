@@ -1,26 +1,169 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
+/* Map your CSS variables to Tailwind color tokens here */
 @theme inline {
+  /* Base colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* Primary/Secondary etc. */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Your dynamic tokens for direct usage */
+  --color-dynamic-primary: var(--primary);
+  --color-dynamic-accent: var(--accent);
+  --color-dynamic-text-primary: var(--foreground);
+  --color-dynamic-text-secondary: var(--secondary);
+
+  /* Radii */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Root variables */
+/* Define HSL parts only for use in hsl(var(--xxx-hsl)) */
+:root {
+  --background-hsl: 0 0% 10%;
+  --foreground-hsl: 0 0% 98%;
+  --card-hsl: 0 0% 12%;
+  --card-foreground-hsl: 0 0% 98%;
+  --popover-hsl: 0 0% 12%;
+  --popover-foreground-hsl: 0 0% 98%;
+  --primary-hsl: 15 80% 50%;
+  --primary-foreground-hsl: 0 0% 98%;
+  --secondary-hsl: 35 80% 50%;
+  --secondary-foreground-hsl: 0 0% 98%;
+  --muted-hsl: 0 0% 20%;
+  --muted-foreground-hsl: 0 0% 60%;
+  --accent-hsl: 0 80% 45%;
+  --accent-foreground-hsl: 0 0% 98%;
+  --destructive-hsl: 0 84% 60%;
+  --destructive-foreground-hsl: 0 0% 98%;
+  --border-hsl: 0 0% 25%;
+  --input-hsl: 0 0% 15%;
+  --ring-hsl: 15 80% 50%;
+  --radius: 0.5rem;
+
+  /* Also define full hsl() versions for Tailwind or other usage */
+  --background: hsl(var(--background-hsl));
+  --foreground: hsl(var(--foreground-hsl));
+  --card: hsl(var(--card-hsl));
+  --card-foreground: hsl(var(--card-foreground-hsl));
+  --popover: hsl(var(--popover-hsl));
+  --popover-foreground: hsl(var(--popover-foreground-hsl));
+  --primary: hsl(var(--primary-hsl));
+  --primary-foreground: hsl(var(--primary-foreground-hsl));
+  --secondary: hsl(var(--secondary-hsl));
+  --secondary-foreground: hsl(var(--secondary-foreground-hsl));
+  --muted: hsl(var(--muted-hsl));
+  --muted-foreground: hsl(var(--muted-foreground-hsl));
+  --accent: hsl(var(--accent-hsl));
+  --accent-foreground: hsl(var(--accent-foreground-hsl));
+  --destructive: hsl(var(--destructive-hsl));
+  --destructive-foreground: hsl(var(--destructive-foreground-hsl));
+  --border: hsl(var(--border-hsl));
+  --input: hsl(var(--input-hsl));
+  --ring: hsl(var(--ring-hsl));
+}
+
+/* Base styles */
+* {
+  @apply border-border outline-ring/50;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-background text-foreground;
+}
+
+/* Animations */
+/* Keyframes */
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+@keyframes background-pan {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.3; }
+}
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes blob-pulse {
+  0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.7; }
+  33% { transform: scale(1.1) translate(10px, -10px); opacity: 0.8; }
+  66% { transform: scale(0.9) translate(-10px, 10px); opacity: 0.6; }
+}
+@keyframes text-glow {
+  0%, 100% {
+    text-shadow:
+            0 0 5px hsl(var(--foreground-hsl)),
+            0 0 10px hsl(var(--primary-hsl));
+  }
+  50% {
+    text-shadow:
+            0 0 10px hsl(var(--foreground-hsl)),
+            0 0 20px hsl(var(--primary-hsl)),
+            0 0 30px hsl(var(--accent-hsl));
+  }
+}
+
+/* Animation utility classes */
+.animate-accordion-down {
+  animation: accordion-down 0.2s ease-out forwards;
+}
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out forwards;
+}
+.animate-background-pan {
+  animation: background-pan 30s linear infinite;
+}
+.animate-gradient-shift {
+  animation: gradient-shift 15s ease infinite alternate;
+}
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+.animate-fade-in {
+  animation: fade-in 2s ease-out forwards;
+}
+.animate-blob-pulse {
+  animation: blob-pulse 12s ease-in-out infinite;
+}
+.animate-text-glow {
+  animation: text-glow 4s ease-in-out infinite alternate;
 }
