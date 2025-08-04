@@ -55,11 +55,11 @@ export function AboutUsSection() {
             <Card className="bg-card border border-border/50 shadow-xl p-8 rounded-2xl hover:shadow-dynamic-primary/20 transition-all duration-300 ease-in-out flex flex-col md:flex-row items-center md:items-start gap-6 hover:scale-115">
               <div className="relative w-36 h-36 md:w-40 md:h-40 flex-shrink-0">
                 <Image
-                  src="/placeholder.svg?height=200&width=200&text=Simeon"
-                  alt="Simeon Sabev"
-                  width={200}
-                  height={200}
-                  className="rounded-full object-cover w-full h-full border-3 border-dynamic-primary"
+                    src="/simo.jpg?height=200&width=200&text=Simeon"
+                    alt="Simeon Sabev"
+                    width={200}
+                    height={200}
+                    className="rounded-full object-cover w-full h-full border-3 border-dynamic-primary"
                 />
                 <Badge className="absolute top-0 right-0 bg-dynamic-primary text-primary-foreground px-2.5 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1">
                   <Sparkles className="h-3 w-3" /> Available
