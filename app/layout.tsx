@@ -1,5 +1,5 @@
 import favicon from "@/public/phoenixfavicon.png"
-import op from "@/public/Phoenix.png"
+import op from "@/public/op.png"
 import type { Metadata } from "next"
 import { Inter, Oswald } from "next/font/google"
 import "./globals.css"
