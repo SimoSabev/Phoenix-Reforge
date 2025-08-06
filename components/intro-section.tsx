@@ -3,7 +3,6 @@
 import { Easing, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Layers } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const containerVariants = {
@@ -59,27 +58,21 @@ const AnimatedHeading = () => (
 export function IntroSection() {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
-
     const springConfig = { stiffness: 100, damping: 10, mass: 0.5 };
     const smoothMouseX = useSpring(mouseX, springConfig);
     const smoothMouseY = useSpring(mouseY, springConfig);
 
-    // State to reflect whether the component has mounted on the client
     const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
     useEffect(() => {
-        // Update window size state on client-side render
         const updateWindowSize = () => {
             setWindowSize({ width: window.innerWidth, height: window.innerHeight });
         };
-
-        updateWindowSize(); // Initialize the size on mount
+        updateWindowSize();
         window.addEventListener("resize", updateWindowSize);
-
         return () => window.removeEventListener("resize", updateWindowSize);
     }, []);
 
-    // Dynamically calculate transforms based on window size
     const rotateX = useTransform(
         smoothMouseY,
         [0, windowSize.height],
@@ -106,7 +99,6 @@ export function IntroSection() {
             mouseX.set(event.clientX);
             mouseY.set(event.clientY);
         };
-
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, [mouseX, mouseY]);
@@ -116,41 +108,40 @@ export function IntroSection() {
             id="intro"
             className="relative h-screen w-full flex items-center justify-start bg-background overflow-hidden p-6 sm:p-10 md:p-16 lg:p-24"
         >
-            {/* ✅ Background Elements */}
+            {/* ✅ Way Better New Background Elements */}
             <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-[0.03]"></div>
+                {/* Subtle grid pattern for base texture */}
+                <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-[0.01]"></div>
 
-                <motion.div
-                    className="absolute inset-0 bg-gradient-radial from-dynamic-primary/15 via-transparent to-transparent rounded-full blur-3xl"
-                    style={{
-                        x: translateX,
-                        y: translateY,
-                        scale: useTransform(smoothMouseX, [0, windowSize.width], [1, 1.1]),
-                        opacity: useTransform(smoothMouseX, [0, windowSize.width], [0.2, 0.3]),
-                    }}
-                    transition={{ type: "spring", stiffness: 50, damping: 10 }}
-                />
+                {/* Large, animated radial gradient for the main glowing nebula effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-dynamic-primary/20 via-dynamic-accent/10 to-transparent bg-[length:200%_200%] animate-gradient-shift opacity-70"></div>
 
-                {/* ✅ Floating Blobs */}
+                {/* Interactive light particles / blobs */}
                 <motion.div
-                    className="absolute top-1/4 left-1/4 w-48 h-48 bg-dynamic-accent/20 rounded-full blur-3xl animate-blob-pulse"
+                    className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-dynamic-accent/30 blur-3xl animate-blob-pulse"
                     style={{
-                        x: useTransform(smoothMouseX, [0, windowSize.width], [-30, 30]),
-                        y: useTransform(smoothMouseY, [0, windowSize.height], [-30, 30]),
+                        x: useTransform(smoothMouseX, [0, windowSize.width], [-50, 50]),
+                        y: useTransform(smoothMouseY, [0, windowSize.height], [-50, 50]),
+                        scale: useTransform(smoothMouseX, [0, windowSize.width], [0.9, 1.2]),
+                        opacity: useTransform(smoothMouseX, [0, windowSize.width], [0.6, 0.8]),
                     }}
                 />
                 <motion.div
-                    className="absolute bottom-1/3 right-1/4 w-32 h-32 bg-dynamic-secondary/20 rounded-full blur-3xl animate-blob-pulse delay-1000"
+                    className="absolute bottom-1/3 right-1/4 w-48 h-48 rounded-full bg-dynamic-secondary/30 blur-3xl animate-blob-pulse delay-1000"
                     style={{
-                        x: useTransform(smoothMouseX, [0, windowSize.width], [30, -30]),
-                        y: useTransform(smoothMouseY, [0, windowSize.height], [30, -30]),
+                        x: useTransform(smoothMouseX, [0, windowSize.width], [50, -50]),
+                        y: useTransform(smoothMouseY, [0, windowSize.height], [50, -50]),
+                        scale: useTransform(smoothMouseY, [0, windowSize.height], [0.8, 1.1]),
+                        opacity: useTransform(smoothMouseY, [0, windowSize.height], [0.5, 0.7]),
                     }}
                 />
                 <motion.div
-                    className="absolute top-1/2 left-1/2 w-24 h-24 bg-dynamic-primary/20 rounded-full blur-3xl animate-blob-pulse delay-2000"
+                    className="absolute top-1/2 left-1/2 w-32 h-32 rounded-full bg-dynamic-primary/30 blur-3xl animate-blob-pulse delay-2000"
                     style={{
-                        x: useTransform(smoothMouseX, [0, windowSize.width], [-15, 15]),
-                        y: useTransform(smoothMouseY, [0, windowSize.height], [-15, 15]),
+                        x: useTransform(smoothMouseX, [0, windowSize.width], [-25, 25]),
+                        y: useTransform(smoothMouseY, [0, windowSize.height], [-25, 25]),
+                        scale: useTransform(smoothMouseX, [0, windowSize.width], [0.7, 1.0]),
+                        opacity: useTransform(smoothMouseX, [0, windowSize.width], [0.4, 0.6]),
                     }}
                 />
             </div>
@@ -176,9 +167,9 @@ export function IntroSection() {
             >
                 <Link href="#projects">
                     <Button className="px-6 py-3 text-lg font-semibold bg-card cursor-pointer border border-border/50 text-dynamic-text-primary hover:bg-dynamic-primary hover:text-primary-foreground transition-all duration-300 ease-in-out rounded-lg shadow-md hover:shadow-dynamic-primary/30 transform hover:scale-105">
-            <span className="text-dynamic-text-secondary text-xs block mb-0.5">
-              OUR NEXT STEP:
-            </span>
+                        <span className="text-dynamic-text-secondary text-xs block mb-0.5">
+                            OUR NEXT STEP:
+                        </span>
                         YOUR PROJECT
                     </Button>
                 </Link>

@@ -46,7 +46,7 @@ const projectList = [
     type: "Freelance",
     year: 2023,
     image: "/cruz.png?height=200&width=300&query=Cruz%20Cuts%20website%20screenshot",
-    link: "#",
+    link: "https://fifo-barber.vercel.app",
   },
   {
     name: "Personal Portfolio",
