@@ -85,6 +85,9 @@
   --border: hsl(var(--border-hsl));
   --input: hsl(var(--input-hsl));
   --ring: hsl(var(--ring-hsl));
+
+  --shadow-primary-glow: 0 0 30px hsl(var(--primary-hsl) / 0.3);
+  --bg-dot-pattern: url("data:image/svg+xml,%3Csvg%20width='6'%20height='6'%20viewBox='0%200%206%206'%20xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle%20cx='3'%20cy='3'%20r='0.5'%20fill='%23ffffff'%20opacity='0.05'/%3E%3C/svg%3E");
 }
 
 /* Base styles */
@@ -166,4 +169,38 @@ body {
 }
 .animate-text-glow {
   animation: text-glow 4s ease-in-out infinite alternate;
+}
+
+.scrolled-navbar {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: var(--color-primary-foreground);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Smooth shadow */
+  backdrop-filter: blur(10px); /* Blur effect */
+  animation: gradient-shift 15s ease infinite alternate; /* Optional smooth gradient animation */
+  position: relative; /* Ensure pseudo-element affects only this */
+  overflow: hidden;
+}
+
+.scrolled-navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.05; /* Adjust texture visibility */
+  pointer-events: none; /* Makes sure it doesn't block user interactions */
+  z-index: 0;
+}
+
+.scrolled-navbar > * {
+  position: relative;
+  z-index: 10; /* Raise contents above the pseudo-element */
+}
+
+.shadow-primary-glow {
+  box-shadow: var(--shadow-primary-glow);
+}
+
+.bg-dot-pattern {
+  background-image: var(--bg-dot-pattern);
 }
