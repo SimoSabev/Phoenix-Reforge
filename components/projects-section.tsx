@@ -1,9 +1,10 @@
 "use client"
-import { useState } from "react"
-import type React from "react"
 
+import { useState, useEffect } from "react"
+import type React from "react"
 import Image from "next/image"
-import { motion } from "framer-motion"
+import Link from "next/link"
+import { motion, AnimatePresence } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 
 const projectList = [
@@ -12,49 +13,56 @@ const projectList = [
     role: "Frontend Development",
     type: "Freelance",
     year: 2024,
-    image: "/azion.png?height=200&width=300&text=Azion",
+    image: "/azion.png?height=200&width=300&query=Azion%20website%20screenshot",
+    link: "https://www.azion.online/",
   },
   {
     name: "Ilios Decor",
     role: "Frontend Development",
     type: "Freelance",
     year: 2025,
-    image: "/ilios.png?height=200&width=300&text=Ilios%20Decor",
+    image: "/ilios.png?height=200&width=300&query=Ilios%20Decor%20website%20screenshot",
+    link: "https://www.iliosdecor.com/",
   },
   {
     name: "Yachtllywood",
     role: "Frontend Development",
     type: "Freelance",
     year: 2024,
-    image: "/yachtllywood.png?height=200&width=300&text=Yachtllywood",
+    image: "/yachtllywood.png?height=200&width=300&query=Yachtllywood%20website%20screenshot",
+    link: "https://www.yachtllywood.com/",
   },
   {
     name: "Shiseikan Aikido Dojo",
     role: "Frontend Development",
     type: "Freelance with Code Resolution",
     year: 2022,
-    image: "/shiseikan.png?height=200&width=300&text=Shiseikan%20Aikido",
+    image: "/shiseikan.png?height=200&width=300&query=Shiseikan%20Aikido%20Dojo%20website%20screenshot",
+    link: "https://www.aikidoshiseikan.com/",
   },
   {
     name: "Cruz Cuts",
     role: "Frontend Development",
     type: "Freelance",
     year: 2023,
-    image: "/cruz.png?height=200&width=300&text=Cruz%20Cuts",
+    image: "/cruz.png?height=200&width=300&query=Cruz%20Cuts%20website%20screenshot",
+    link: "#",
   },
   {
     name: "Personal Portfolio",
     role: "Design & Frontend Development",
     type: "Freelance",
     year: 2021,
-    image: "/personalportfolio.png?height=200&width=300&text=Personal%20Portfolio",
+    image: "/personalportfolio.png?height=200&width=300&query=Personal%20Portfolio%20website%20screenshot",
+    link: "https://frontend-portfolio-six-kappa.vercel.app/",
   },
   {
     name: "Arlekin",
     role: "Frontend Development",
     type: "Freelance",
     year: 2023,
-    image: "/arlekin.png?height=200&width=300&text=Arlekin",
+    image: "/arlekin.png?height=200&width=300&query=Arlekin%20website%20screenshot",
+    link: "https://arlekin.vercel.app",
   },
 ]
 
@@ -81,6 +89,19 @@ export default function ProjectsSection() {
   const [hoveredProject, setHoveredProject] = useState<{ name: string; image: string } | null>(null)
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
   const [sectionRef, sectionInView] = useInView({ triggerOnce: true, threshold: 0.05 })
+  const [isMobile, setIsMobile] = useState(false) // State to track mobile view
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768) // Tailwind's 'md' breakpoint is 768px
+    }
+
+    // Set initial state
+    handleResize()
+
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   const handleMouseMove = (event: React.MouseEvent) => {
     const { clientX, clientY } = event
@@ -95,7 +116,6 @@ export default function ProjectsSection() {
           className="py-24 md:py-40 bg-background text-dynamic-text-primary relative overflow-hidden"
       >
         <motion.h2
-            ref={sectionRef}
             initial="hidden"
             animate={sectionInView ? "visible" : "hidden"}
             variants={sectionVariants}
@@ -103,13 +123,18 @@ export default function ProjectsSection() {
         >
           Projects
         </motion.h2>
-
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-[url('/hexagonal-pattern.svg')] bg-repeat opacity-10 animate-background-pan"></div>
+          {/* Base texture */}
+          <div className="absolute inset-0 bg-[url('/hexagonal-pattern.svg')] bg-repeat opacity-5 animate-background-pan"></div>
+          {/* Subtle gradient glow */}
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-primary/10 to-transparent opacity-20 animate-pulse-slow"></div>
-          <div className="absolute inset-0 bg-[url('/abstract-shapes.svg')] bg-cover bg-center opacity-5 animate-fade-in"></div>
+          {/* Abstract shapes texture */}
+          <div className="absolute inset-0 bg-[url('/abstract-shapes.svg')] bg-cover bg-center opacity-3 animate-fade-in"></div>
+          {/* Large radial glow */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-[800px] h-[800px] rounded-full bg-dynamic-accent/10 blur-3xl opacity-30 animate-blob-pulse"></div>
+          </div>
         </div>
-
         <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
           <motion.h2
               initial="hidden"
@@ -122,59 +147,69 @@ export default function ProjectsSection() {
           >
             Our Creative Portfolio
           </motion.h2>
-
           <motion.div className="relative" initial="hidden" animate={sectionInView ? "visible" : "hidden"}>
             <div className="grid grid-cols-1 gap-y-6">
               {projectList.map((project) => (
-                  <motion.div
+                  <Link
                       key={project.name}
-                      variants={itemVariants}
-                      className="relative flex flex-col sm:flex-row items-center sm:justify-between py-6 px-8 rounded-xl transition-all duration-300 ease-in-out group bg-card border border-border/50 hover:bg-dynamic-primary/10 hover:border-dynamic-primary/50 cursor-pointer"
-                      onMouseEnter={() => setHoveredProject({ name: project.name, image: project.image })}
-                      onMouseLeave={() => setHoveredProject(null)}
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block group"
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-12 w-full sm:w-auto">
-                      <motion.span
-                          className="text-3xl font-display font-bold text-dynamic-primary group-hover:text-dynamic-primary-foreground transition-colors duration-300"
-                          whileHover={{ scale: 1.02, x: 5 }}
-                      >
-                        {project.name}
-                      </motion.span>
-                      <span className="text-dynamic-text-secondary text-xl">{project.role}</span>
-                    </div>
-                    <div className="flex items-center gap-6 mt-4 sm:mt-0">
-                      <span className="text-dynamic-text-secondary text-xl hidden md:block">{project.type}</span>
-                      <span className="text-dynamic-text-secondary text-xl">{project.year}</span>
-                    </div>
-
-                    {hoveredProject?.name === project.name && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                            transition={{ duration: 0.3, ease: "easeOut" }}
-                            style={{
-                              position: "fixed", // Follow the cursor globally
-                              top: cursorPosition.y + 10, // Offset below cursor
-                              left: cursorPosition.x + 20, // Offset right of cursor
-                              pointerEvents: "none", // No interaction
-                              zIndex: 50,
-                            }}
-                            className="w-80 h-52 bg-card rounded-xl shadow-2xl overflow-hidden border border-border/50"
+                    <motion.div
+                        variants={itemVariants}
+                        className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between py-6 px-8 rounded-xl transition-all duration-300 ease-in-out group bg-card border border-border/50 hover:bg-dynamic-primary/10 hover:border-dynamic-primary/50 cursor-pointer group-hover:shadow-2xl group-hover:shadow-dynamic-primary/40 group-hover:ring-2 group-hover:ring-dynamic-primary/60"
+                        onMouseEnter={() => setHoveredProject({ name: project.name, image: project.image })}
+                        onMouseLeave={() => setHoveredProject(null)}
+                    >
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8 w-full sm:w-auto mb-4 sm:mb-0">
+                        <motion.span
+                            className="text-3xl sm:text-2xl font-display font-bold text-dynamic-primary group-hover:text-dynamic-primary-foreground transition-colors duration-300"
+                            whileHover={{ scale: 1.02, x: 5 }}
                         >
-                          <Image
-                              src={project.image || "/placeholder.svg"}
-                              alt={`Preview of ${project.name}`}
-                              width={320}
-                              height={208}
-                              className="object-cover w-full h-full"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
-                            <span className="text-lg font-semibold text-white">{project.name}</span>
-                          </div>
-                        </motion.div>
-                    )}
-                  </motion.div>
+                          {project.name}
+                        </motion.span>
+                        <span className="text-dynamic-text-secondary text-lg sm:text-xl">{project.role}</span>
+                      </div>
+                      <div className="flex items-center gap-4 sm:gap-6">
+                        <span className="text-dynamic-text-secondary text-lg sm:text-xl hidden md:block">{project.type}</span>
+                        <span className="text-dynamic-text-secondary text-lg sm:text-xl">{project.year}</span>
+                      </div>
+                      {/* Conditionally render the hover image only on non-mobile screens */}
+                      {!isMobile && (
+                          <AnimatePresence>
+                            {hoveredProject?.name === project.name && (
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.8 }}
+                                    transition={{ duration: 0.3, ease: "easeOut" }}
+                                    style={{
+                                      position: "fixed",
+                                      top: cursorPosition.y + 10,
+                                      left: cursorPosition.x + 20,
+                                      pointerEvents: "none",
+                                      zIndex: 50,
+                                    }}
+                                    className="w-80 h-52 bg-card rounded-xl shadow-2xl overflow-hidden border border-border/50"
+                                >
+                                  <Image
+                                      src={project.image || "/placeholder.svg"}
+                                      alt={`Preview of ${project.name}`}
+                                      width={320}
+                                      height={208}
+                                      className="object-cover w-full h-full"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
+                                    <span className="text-lg font-semibold text-white">{project.name}</span>
+                                  </div>
+                                </motion.div>
+                            )}
+                          </AnimatePresence>
+                      )}
+                    </motion.div>
+                  </Link>
               ))}
             </div>
           </motion.div>
