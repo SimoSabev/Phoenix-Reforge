@@ -11,7 +11,7 @@ const projectList = [
   {
     name: "Azion",
     role: "Frontend Development",
-    type: "Freelance",
+    type: "IT Competition",
     year: 2024,
     image: "/azion.png?height=200&width=300&query=Azion%20website%20screenshot",
     link: "https://www.azion.online/",
@@ -35,7 +35,7 @@ const projectList = [
   {
     name: "Shiseikan Aikido Dojo",
     role: "Frontend Development",
-    type: "Freelance with Code Resolution",
+    type: "Freelance",
     year: 2022,
     image: "/shiseikan.png?height=200&width=300&query=Shiseikan%20Aikido%20Dojo%20website%20screenshot",
     link: "https://www.aikidoshiseikan.com/",
