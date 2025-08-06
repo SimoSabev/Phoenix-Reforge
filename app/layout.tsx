@@ -19,8 +19,9 @@ const oswald = Oswald({
 })
 
 export const metadata: Metadata = {
-  title: "Phoenix Reforge - Web Dev & Design",
-  description: "Crafting exceptional digital experiences.",
+  title: "Phoenix Reforge - Уеб разработка и дизайн в България",
+  description:
+      "Агенция за уеб разработка и дизайн. Изграждаме модерни, бързи и впечатляващи уеб сайтове за бизнеси и креативни проекти в България и Европа.",
   metadataBase: new URL("https://www.phoenixreforge.org"),
   icons: {
     icon: favicon.src,
@@ -28,19 +29,21 @@ export const metadata: Metadata = {
     apple: favicon.src,
   },
   openGraph: {
-    title: "Phoenix Reforge - Web Dev & Design",
-    description: "Crafting exceptional digital experiences.",
+    title: "Phoenix Reforge - Уеб разработка и дизайн",
+    description:
+        "Модерни уеб сайтове и дигитални решения за бизнеси в България и чужбина.",
     url: "https://www.phoenixreforge.org",
     siteName: "Phoenix Reforge",
     images: [
       {
-        url: op.src, // Ideally use a larger banner image (e.g. /og-image.png)
+        url: op.src,
         width: 1200,
         height: 630,
-        alt: "Phoenix Reforge Logo",
+        alt: "Phoenix Reforge - Уеб агенция",
       },
     ],
     type: "website",
+    locale: "bg_BG", // 🇧🇬 важно за таргетиране в България
   },
 }
 
