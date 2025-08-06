@@ -60,7 +60,7 @@ export function Navbar() {
         <div className="container mx-auto flex justify-between items-center h-14">
           <Link href="#intro" className="cursor-pointer flex items-center">
             <Image
-                src="/Phoenix.png" // Corrected logo path
+                src="/phoenixreforge-full-white.png" // Corrected logo path
                 alt="Phoenix Reforge Logo"
                 width={130}
                 height={35}
