@@ -115,7 +115,7 @@ export function AboutUsSection() {
             <Card className="bg-card border border-border/50 shadow-xl p-8 rounded-2xl hover:shadow-dynamic-primary/20 transition-all duration-300 ease-in-out flex flex-col md:flex-row-reverse items-center md:items-start gap-6 hover:scale-115">
               <div className="relative w-36 h-36 md:w-40 md:h-40 flex-shrink-0">
                 <Image
-                  src="/placeholder.svg?height=200&width=200&text=Maksim"
+                  src="/akimov.jpg?height=200&width=200&text=Maksim"
                   alt="Maksim Akimov"
                   width={200}
                   height={200}
